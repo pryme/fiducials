@@ -1,22 +1,37 @@
 <!-- Run the aruco_detect node -->
+<!-- Modified with elements from magni_demos/launch/fiducial_follow.launch -->
+
 <launch>
+  <!-- Run the Pi camera at low resolution -->
+  <include file="$(find raspicam_node)/launch/camerav2_410x308_30fps.launch" />
+
   <!-- namespace for camera input -->
   <arg name="camera" default="/camera"/>
   <arg name="image" default="image"/>
-  <arg name="transport" default="compressed"/>
   <arg name="fiducial_len" default="0.14"/>
   <arg name="dictionary" default="7"/>
+  <!-- Below enables 6DOF pose, in addition to vertices -->
   <arg name="do_pose_estimation" default="true"/>
-
+  
+  <!-- Run aruco_detect with special parameters to optimize for speed -->
   <node pkg="aruco_detect" name="aruco_detect"
     type="aruco_detect" output="screen" respawn="false">
-    <param name="image_transport" value="$(arg transport)"/>
+    <param name="image_transport" value="compressed"/>
     <param name="publish_images" value="true" />
     <param name="fiducial_len" value="$(arg fiducial_len)"/>
     <param name="dictionary" value="$(arg dictionary)"/>
     <param name="do_pose_estimation" value="$(arg do_pose_estimation)"/>
+    
+    <param name="adaptiveThreshWinSizeStep" value="8" />
+    <param name="adaptiveThreshWinSizeMin" value="10" />
+    <param name="adaptiveThreshWinSizeMax" value="50" />
+    <param name="doCornerRefinement" value="False" />
+    <param name="do_tracking" value="false" />
+    <param name="num_threads" value="3" />
+  
     <remap from="/camera/compressed" 
-        to="$(arg camera)/$(arg image)/$(arg transport)"/>
-    <remap from="/camera_info" to="$(arg camera)/camera_info"/>
+        to="/raspicam_node/image/compressed"/>
+    <remap from="/camera_info" to="/raspicam_node/camera_info"/>
+    
   </node>
 </launch>
