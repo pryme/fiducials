@@ -3,12 +3,12 @@
 
 <launch>
   <!-- Run the Pi camera at low resolution -->
-  <include file="$(find raspicam_node)/launch/camerav2_410x308_30fps.launch" />
+  <include file="$(find raspicam_node)/launch/camerav1_410x308_30fps.launch" />
 
   <!-- namespace for camera input -->
   <arg name="camera" default="/camera"/>
   <arg name="image" default="image"/>
-  <arg name="fiducial_len" default="0.14"/>
+  <arg name="fiducial_len" default="0.050"/>
   <arg name="dictionary" default="7"/>
   <!-- Below enables 6DOF pose, in addition to vertices -->
   <arg name="do_pose_estimation" default="true"/>
