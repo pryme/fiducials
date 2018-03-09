@@ -27,12 +27,12 @@ def genSvg(file, id, dicno):
   <line x1="197.0mm" y1="21.0mm" x2="195.0mm" y2="21.0mm" style="stroke:black"/>
   <line x1="197.0mm" y1="21.0mm" x2="197.0mm" y2="23.0mm" style="stroke:black"/>
   
-  <image x="31.0mm" y="47.0mm" width="140.0mm" height="140.0mm" xlink:href="marker%d.png" />
+  <image x="31.0mm" y="47.0mm" width="50.0mm" height="50.0mm" xlink:href="marker%d.png" />
 
-  <rect x="31.0mm" y="47.0mm" width="140.0mm" height="4.0mm" style="stroke:black; fill:black"/>
-  <rect x="31.0mm" y="183.0mm" width="140.0mm" height="4.0mm" style="stroke:black; fill:black"/>
-  <rect x="31.0mm" y="47.0mm" width="4.0mm" height="140.0mm" style="stroke:black; fill:black"/>
-  <rect x="167.0mm" y="47.0mm" width="4.0mm" height="140.0mm" style="stroke:black; fill:black"/>
+  <rect x="31.0mm" y="47.0mm" width="50.0mm" height="4.0mm" style="stroke:black; fill:black"/>
+  <rect x="31.0mm" y="93.0mm" width="50.0mm" height="4.0mm" style="stroke:black; fill:black"/>
+  <rect x="31.0mm" y="47.0mm" width="4.0mm" height="50.0mm" style="stroke:black; fill:black"/>
+  <rect x="77.0mm" y="47.0mm" width="4.0mm" height="50.0mm" style="stroke:black; fill:black"/>
 
   <line x1="5.0mm" y1="213.0mm" x2="7.0mm" y2="213.0mm" style="stroke:black"/>
   <line x1="5.0mm" y1="213.0mm" x2="5.0mm" y2="211.0mm" style="stroke:black"/>
@@ -66,6 +66,7 @@ if __name__ == "__main__":
         print " Marker %d\r" % i,
         sys.stdout.flush()
         os.system("rosrun aruco_detect create_marker --id=%d --ms=2000 --d=%d marker%d.png" % (i, dicno, i))
+        #os.system("rosrun aruco_detect create_marker --id=%d --ms=800 --d=%d marker%d.png" % (i, dicno, i))
         genSvg("marker%d.svg" % i, i, 7)
         os.system("inkscape --without-gui --export-pdf=marker%d.pdf marker%d.svg" % (i, i))
         os.remove("marker%d.svg" % i)
